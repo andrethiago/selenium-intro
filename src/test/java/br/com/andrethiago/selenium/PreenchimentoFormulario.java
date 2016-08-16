@@ -1,10 +1,15 @@
 package br.com.andrethiago.selenium;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+
+import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class PreenchimentoFormulario {
@@ -12,11 +17,9 @@ public class PreenchimentoFormulario {
 	@Test
 	public void preencheFormularioCorreiosBuscaLogradouroPorBairro() {
 		
-//		System.setProperty("webdriver.chrome.driver", "/home/andrethiago/chromedriver");
-		//ChromeOptions options = new ChromeOptions();
-		//options.setBinary("/usr/bin/google-chrome");
+		System.setProperty("webdriver.chrome.driver", "/home/andrethiago/chromedriver");
 		
-		WebDriver driver = new FirefoxDriver();
+		WebDriver driver = new ChromeDriver();
 		// Visita a página do Correios
 		driver.get("http://www.buscacep.correios.com.br/sistemas/buscacep/buscaLogBairro.cfm");
 		
@@ -33,6 +36,11 @@ public class PreenchimentoFormulario {
 		// clica no botão Buscar
 		WebElement buttonBuscar = driver.findElement(By.cssSelector("input[type='submit'"));
 		buttonBuscar.click();
+		
+		// verifica se há resultados
+		String codigoPagina = driver.getPageSource();
+		assertThat(codigoPagina, Matchers.containsString("DADOS ENCONTRADOS COM SUCESSO."));
+		assertNotNull(driver.findElement(By.cssSelector("table.tmptabela")));
 		
 	}
 
