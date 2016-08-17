@@ -4,7 +4,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,9 +15,6 @@ public class PreenchimentoFormulario {
 	
 	@Test
 	public void preencheFormularioCorreiosBuscaLogradouroPorBairro() {
-		
-		System.setProperty("webdriver.chrome.driver", "/home/andrethiago/chromedriver");
-		
 		WebDriver driver = new ChromeDriver();
 		// Visita a página do Correios
 		driver.get("http://www.buscacep.correios.com.br/sistemas/buscacep/buscaLogBairro.cfm");
@@ -42,6 +38,7 @@ public class PreenchimentoFormulario {
 		assertThat(codigoPagina, Matchers.containsString("DADOS ENCONTRADOS COM SUCESSO."));
 		assertNotNull(driver.findElement(By.cssSelector("table.tmptabela")));
 		
+		driver.quit();
 	}
 
 }
